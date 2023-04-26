@@ -3,7 +3,7 @@ const { Users } = require('../models');
 
 // 사용자 인증 미들웨어
 
-module.exports = async (req, res, nex) => {
+module.exports = async (req, res, next) => {
   const { authorization } = req.cookies;
   // 쿠키를 받아올거다.
   // name : authorization

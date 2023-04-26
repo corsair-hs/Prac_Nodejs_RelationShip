@@ -43,4 +43,22 @@ router.post("/login", async (req, res) => {
   return res.status(200).json({ message: "로그인 성공" });
 });
 
+// 사용자 조회
+router.get("/users/:userId", async (req, res) => {
+  const { userId } = req.params;
+
+  const user = await Users.findOne({
+    attributes: ["userId", "email", "createdAt", "updatedAt"],
+    include: [
+      {
+        model: UserInfos,  // 1:1 관계를 맺고있는 UserInfos 테이블을 조회합니다.
+        attributes: ["name", "age", "gender", "profileImage"],
+      }
+    ],
+    where: { userId }
+  });
+
+  return res.status(200).json({ data: user });
+});
+
 module.exports = router;
